@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft User Lookup</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-lg">
+        <h1 class="text-2xl font-bold mb-4 text-center">Minecraft User Lookup</h1>
+        <form id="lookupForm" class="mb-4">
+            <label for="uuid" class="block text-gray-700 font-bold mb-2">Enter Minecraft UUID:</label>
+            <input type="text" id="uuid" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="e.g. 12345678-1234-1234-1234-123456789012">
+            <p class="text-gray-500 text-sm mt-2">You can get the UUIDs from <a href="https://minecraftuuid.com" class="text-blue-500 hover:underline">MinecraftUUID.com</a></p>
+            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Lookup</button>
+        </form>
+        <div id="result" class="hidden">
+            <h2 class="text-xl font-bold mb-2 text-center">User Information</h2>
+            <div class="image-container flex justify-center mb-4">
+                <img id="avatar" src="" alt="Avatar" class="w-16 h-16">
+            </div>
+            <div class="image-container flex justify-center mb-4">
+                <img id="head" src="" alt="Head" class="w-16 h-16">
+            </div>
+            <div class="image-container flex justify-center mb-4">
+                <img id="body" src="" alt="Body" class="w-32 h-64">
+            </div>
+            <div class="image-container flex justify-center mb-4">
+                <img id="skin" src="" alt="Skin" class="w-32 h-64">
+            </div>
+            <div class="image-container flex justify-center mb-4">
+                <img id="cape" src="" alt="Cape" class="w-32 h-64" onerror="this.style.display='none'">
+            </div>
+        </div>
+        <p class="text-center text-gray-500 text-sm mt-8">Thank you to <a href="https://crafatar.com" class="text-blue-500 hover:underline">Crafatar</a> for providing avatars.</p>
+        <button id="scrollTop" class="hidden bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fixed bottom-4 right-4">Back to Top</button>
+    </div>
+
+    <script>
+        document.getElementById('lookupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const uuid = document.getElementById('uuid').value.trim();
+            if (uuid) {
+                document.getElementById('avatar').src = `https://crafatar.com/avatars/${uuid}`;
+                document.getElementById('head').src = `https://crafatar.com/renders/head/${uuid}`;
+                document.getElementById('body').src = `https://crafatar.com/renders/body/${uuid}`;
+                document.getElementById('skin').src = `https://crafatar.com/skins/${uuid}`;
+                document.getElementById('cape').src = `https://crafatar.com/capes/${uuid}`;
+                document.getElementById('result').classList.remove('hidden');
+                document.getElementById('scrollTop').classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('scrollTop').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
